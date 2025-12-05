@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "../hooks/ReduxHooks";
 import { useDebounce } from "../hooks/useDebounce";
 import {
+  clearPosts,
   searchRedditPosts,
   searchDevToPosts,
   searchHackerNewsPosts,
@@ -30,18 +31,36 @@ function MainLayout() {
     setIsMenuOpen(false);
   };
 
-  useEffect(() => {
+useEffect(() => {
     if (debouncedSearchTerm.trim().length > 2) {
-      if (location.pathname === "/reddit") {
+      dispatch(clearPosts());
+
+      if (location.pathname === '/reddit') {
         dispatch(searchRedditPosts(debouncedSearchTerm));
-      } else if (location.pathname === "/devto") {
+      } else if (location.pathname === '/devto') {
         dispatch(searchDevToPosts(debouncedSearchTerm));
-      } else if (location.pathname === "/hackernews") {
+      } else if (location.pathname === '/hackernews') {
         dispatch(searchHackerNewsPosts(debouncedSearchTerm));
       } else {
         dispatch(searchRedditPosts(debouncedSearchTerm));
+        dispatch(searchDevToPosts(debouncedSearchTerm));
+        dispatch(searchHackerNewsPosts(debouncedSearchTerm));
       }
-    } else if (debouncedSearchTerm === "" && searchTerm !== "") {
+    } 
+    else {
+      dispatch(clearPosts());
+
+      if (location.pathname === '/reddit') {
+        dispatch(fetchRedditPosts("webdev"));
+      } else if (location.pathname === '/devto') {
+        dispatch(fetchDevToPosts("webdev"));
+      } else if (location.pathname === '/hackernews') {
+        dispatch(fetchHackerNewsPosts());
+      } else {
+        dispatch(fetchRedditPosts("webdev"));
+        dispatch(fetchDevToPosts("webdev"));
+        dispatch(fetchHackerNewsPosts());
+      }
     }
   }, [debouncedSearchTerm, location.pathname, dispatch]);
 

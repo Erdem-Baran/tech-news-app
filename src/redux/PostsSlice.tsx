@@ -108,7 +108,7 @@ export const searchRedditPosts = createAsyncThunk(
   "posts/searchRedditPosts",
   async (query: string) => {
     const response = await fetch(
-      `https://www.reddit.com/search.json?q=${query}&sort=relevance&t=all&limit=10`
+      `/api/reddit/search.json?q=${query}&sort=relevance&t=all&limit=10`  
     );
     const json = await response.json();
 
@@ -194,7 +194,7 @@ const postsSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+extraReducers: (builder) => {
     const handleFulfilled = (
       state: PostsState,
       action: PayloadAction<Post[]>
@@ -209,53 +209,62 @@ const postsSlice = createSlice({
       state.items = [...state.items, ...uniqueNewItems];
     };
 
+    const handleRejected = (state: PostsState, action: any, sourceName: string) => {
+      state.status = "failed";
+      state.error = action.error.message || `${sourceName} data could not be retrieved`;
+    };
+
     builder
+      // --- REDDIT ---
       .addCase(fetchRedditPosts.pending, (state) => {
         state.status = "loading";
       })
+      .addCase(fetchRedditPosts.fulfilled, handleFulfilled)
+      .addCase(fetchRedditPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Reddit")
+      )
+      // Reddit Search
       .addCase(searchRedditPosts.pending, (state) => {
         state.status = "loading";
-        state.items = [];
       })
-      .addCase(fetchRedditPosts.fulfilled, handleFulfilled)
       .addCase(searchRedditPosts.fulfilled, handleFulfilled)
-      .addCase(fetchRedditPosts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error =
-          action.error.message || "Reddit data could not be retrieved";
-      });
+      .addCase(searchRedditPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Reddit Search")
+      )
 
-    builder
+      // --- DEV.TO ---
       .addCase(fetchDevToPosts.pending, (state) => {
         state.status = "loading";
       })
+      .addCase(fetchDevToPosts.fulfilled, handleFulfilled)
+      .addCase(fetchDevToPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Dev.to")
+      )
+      // Dev.to Search
       .addCase(searchDevToPosts.pending, (state) => {
         state.status = "loading";
-        state.items = [];
       })
-      .addCase(fetchDevToPosts.fulfilled, handleFulfilled)
       .addCase(searchDevToPosts.fulfilled, handleFulfilled)
-      .addCase(fetchDevToPosts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error =
-          action.error.message || "Dev.to data could not be retrieved";
-      });
+      .addCase(searchDevToPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Dev.to Search")
+      )
 
-    builder
+      // --- HACKER NEWS ---
       .addCase(fetchHackerNewsPosts.pending, (state) => {
         state.status = "loading";
       })
+      .addCase(fetchHackerNewsPosts.fulfilled, handleFulfilled)
+      .addCase(fetchHackerNewsPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Hacker News")
+      )
+      // Hacker News Search
       .addCase(searchHackerNewsPosts.pending, (state) => {
         state.status = "loading";
-        state.items = [];
       })
-      .addCase(fetchHackerNewsPosts.fulfilled, handleFulfilled)
       .addCase(searchHackerNewsPosts.fulfilled, handleFulfilled)
-      .addCase(fetchHackerNewsPosts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error =
-          action.error.message || "Hacker News data could not be retrieved";
-      });
+      .addCase(searchHackerNewsPosts.rejected, (state, action) => 
+        handleRejected(state, action, "Hacker News Search")
+      );
   },
 });
 
