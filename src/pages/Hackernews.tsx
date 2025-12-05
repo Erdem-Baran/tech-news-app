@@ -1,8 +1,6 @@
 import { useAppSelector } from "../hooks/ReduxHooks";
 import type { RootState } from "../redux/Store";
-import { formatCompactNumber } from "../utils/NumberUtils";
-import { truncateText } from "../utils/StringUtils";
-import { formatTimeAgo } from "../utils/DateUtils";
+import PostCard from "../components/PostCards";
 
 
 function HackerNews() {
@@ -41,42 +39,10 @@ function HackerNews() {
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-6">
-        <span className="bg-orange-500 text-white px-3 py-1 rounded text-sm font-semibold">
-          HACKER NEWS
-        </span>
-        <h2 className="text-3xl font-bold text-white">Hacker News Stories</h2>
-      </div>
+      <h2 className="text-3xl font-bold text-white mb-6">All Tech News</h2>
       <div className="space-y-4">
-        {hackerNewsPosts.map((post: any) => (
-          <div
-            key={post.id}
-            className="bg-slate-800 p-6 rounded-lg hover:bg-slate-750 transition-colors border-l-4 border-orange-500"
-          >
-            <a
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400"
-            >
-              <h3 className="text-xl text-white hover:text-blue-400 transition-colors">
-                {truncateText(post.title, 80)}
-              </h3>
-            </a>
-            <p className="text-gray-400 text-sm mt-2">
-              by {post.author} • {formatCompactNumber(post.comments)} comments
-            </p>
-            {post.thumbnail && (
-              <img
-                src={post.thumbnail}
-                alt="thumbnail"
-                className="w-20 h-20 object-cover rounded mt-2 hidden sm:block"
-              />
-            )}
-            <p className="text-gray-400 text-sm mt-1">
-              {formatTimeAgo(post.timeStamp)}
-            </p>
-          </div>
+        {items.map((post: any) => (
+          <PostCard key={post.id} post={post} />
         ))}
       </div>
     </div>

@@ -1,10 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
-import Home from './pages/Home';
-import Reddit from './pages/Reddit';
-import DevTo from './pages/Devto';
-import HackerNews from './pages/Hackernews';
-import ErrorPage from './pages/ErrorPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainLayout from "./layout/MainLayout";
+import Home from "./pages/Home";
+import Reddit from "./pages/Reddit";
+import DevTo from "./pages/Devto";
+import HackerNews from "./pages/Hackernews";
+import ErrorPage from "./pages/ErrorPage";
+import Favorites from "./pages/Favorites";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "hackernews",
         element: <HackerNews />,
+      },
+      {
+        path: "favorites",
+        element: <Favorites />,
       },
     ],
   },

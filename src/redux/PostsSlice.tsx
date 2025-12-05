@@ -6,12 +6,15 @@ import { HackerNewsService } from "../services/HackerNewsService";
 
 interface PostsState {
   items: Post[];
+  favorites: Post[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 } 
+const savedFavorites = localStorage.getItem("favorites");
 
 const initialState: PostsState = {
   items: [],
+  favorites: savedFavorites ? JSON.parse(savedFavorites) : [],
   status: "idle",
   error: null,
 };
@@ -53,6 +56,17 @@ const postsSlice = createSlice({
       state.items = [];
       state.status = "idle";
       state.error = null;
+    },
+    toggleFavorite(state, action: PayloadAction<Post>) {
+      const post = action.payload;
+      const existingIndex = state.favorites.findIndex((f) => f.id === post.id);
+
+      if (existingIndex >= 0) {
+        state.favorites.splice(existingIndex, 1);
+      } else {
+        state.favorites.push(post);
+      }
+      localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
   },
   extraReducers: (builder) => {
@@ -96,5 +110,5 @@ const postsSlice = createSlice({
   },
 });
 
-export const { clearPosts } = postsSlice.actions;
+export const { clearPosts, toggleFavorite } = postsSlice.actions;
 export default postsSlice.reducer;

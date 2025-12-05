@@ -13,7 +13,7 @@ export const DevToService = {
       url: article.url,
       author: article.user.name,
       source: "devto",
-      timeStamp: new Date(article.published_timestamp).getTime(),
+      timeStamp: article.published_timestamp,
       score: article.positive_reactions_count,
       comments: article.comments_count,
       thumbnail: article.cover_image || undefined,

@@ -9,6 +9,7 @@ export interface Post{
    subreddit?: string;
    source: 'reddit' | 'devto' | 'hackernews';
    content?: string;
+   timeStamp: number;
 }
 
 export interface PostsState{
