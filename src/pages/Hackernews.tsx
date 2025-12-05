@@ -55,6 +55,13 @@ function HackerNews() {
             <p className="text-gray-400 text-sm mt-2">
               by {post.author} • {formatCompactNumber(post.comments)} comments
             </p>
+            {post.thumbnail && (
+              <img
+                src={post.thumbnail}
+                alt="thumbnail"
+                className="w-20 h-20 object-cover rounded mt-2 hidden sm:block"
+              />
+            )}
             <p className="text-gray-400 text-sm mt-1">
               {formatTimeAgo(post.timeStamp)}
             </p>
