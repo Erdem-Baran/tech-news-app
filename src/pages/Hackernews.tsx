@@ -8,7 +8,6 @@ function HackerNews() {
     (state: RootState) => state.posts
   );
 
-  const hackerNewsPosts = items.filter((post) => post.source === "hackernews");
 
   if (status === "loading") {
     return (

@@ -101,7 +101,7 @@ function MainLayout() {
             </div>
 
             {/* Search Bar - Full width on mobile, fixed width on desktop */}
-            <div className="relative w-full md:w-72 order-2 md:order-none">
+            <div className="relative w-full md:w-72 order-2 md:order-0">
               <input
                 type="text"
                 placeholder="Search the news..."

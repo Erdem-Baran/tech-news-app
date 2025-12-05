@@ -7,7 +7,6 @@ function DevTo() {
     (state: RootState) => state.posts
   );
 
-  const devtoPosts = items.filter((post) => post.source === "devto");
 
 
   if (status === "loading") {
