@@ -50,10 +50,8 @@ return (
     {/* Header/Navbar */}
     <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        {/* Üst Kısım: Logo, Arama, Desktop Nav ve Hamburger */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
-          {/* Logo ve Mobil Menü Butonu Satırı */}
           <div className="flex items-center justify-between w-full md:w-auto">
             <Link to="/" className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -85,7 +83,7 @@ return (
             </button>
           </div>
 
-          {/* Search Bar - Mobilde tam genişlik, Desktopta sabit genişlik */}
+          {/* Search Bar - Full width on mobile, fixed width on desktop */}
           <div className="relative w-full md:w-72 order-2 md:order-none">
             <input
               type="text"
@@ -154,7 +152,7 @@ return (
           </nav>
         </div>
 
-        {/* Mobile Navigation Menu (Açılır Kısım) */}
+        {/* Mobile Navigation Menu (Dropdown) */}
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pt-4 border-t border-slate-700 grid grid-cols-1 gap-2 animate-in slide-in-from-top-2">
             <Link
