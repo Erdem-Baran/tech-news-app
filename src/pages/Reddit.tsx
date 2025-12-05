@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/ReduxHooks";
 import { fetchRedditPosts } from "../redux/PostsSlice";
 import type { AppDispatch, RootState } from "../redux/Store";
+import { formatCompactNumber } from "../utils/NumberUtils";
+import { truncateText } from "../utils/StringUtils";
+import { formatTimeAgo } from "../utils/DateUtils";
+
 
 function Reddit() {
   const dispatch = useAppDispatch<AppDispatch>();
@@ -40,7 +44,7 @@ function Reddit() {
         <h2 className="text-3xl font-bold text-white">r/webdev Posts</h2>
       </div>
       <div className="space-y-4">
-        {redditPosts.map((post) => (
+        {redditPosts.map((post: any) => (
           <div
             key={post.id}
             className="bg-slate-800 p-6 rounded-lg hover:bg-slate-750 transition-colors border-l-4 border-orange-600"
@@ -52,11 +56,14 @@ function Reddit() {
               className="text-blue-400"
             >
               <h3 className="text-xl text-white hover:text-blue-400 transition-colors">
-                {post.title}
+                {truncateText(post.title, 80)}
               </h3>
             </a>
             <p className="text-gray-400 text-sm mt-2">
-              by {post.author} • {post.comments} comments
+              by {post.author} • {formatCompactNumber(post.comments)} comments
+            </p>
+            <p className="text-gray-400 text-sm mt-1">
+              {formatTimeAgo(post.timeStamp)}
             </p>
           </div>
         ))}

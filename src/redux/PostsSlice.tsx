@@ -1,12 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import type { Post } from "../types/Types";
+import { RedditService } from "../services/RedditService";
+import { DevToService } from "../services/DevToService";
+import { HackerNewsService } from "../services/HackerNewsService";
 
 interface PostsState {
   items: Post[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-}
+} 
 
 const initialState: PostsState = {
   items: [],
@@ -14,176 +16,35 @@ const initialState: PostsState = {
   error: null,
 };
 
-export const fetchRedditPosts = createAsyncThunk(
-  "posts/fetchRedditPosts",
-  async (subreddit: string = "webdev") => {
-    const response = await fetch(
-      `/api/reddit/r/${subreddit}/hot.json?limit=10`
-    );
-    const json = await response.json();
 
-    const posts: Post[] = json.data.children.map((child: any) => {
-      const data = child.data;
-      return {
-        id: `reddit-${data.id}`,
-        title: data.title,
-        url: data.url,
-        author: data.author,
-        source: "reddit",
-        timeStamp: data.created_utc * 1000,
-        score: data.score,
-        comments: data.num_comments,
-        thumbnail:
-          data.thumbnail && data.thumbnail.startsWith("http")
-            ? data.thumbnail
-            : undefined,
-      };
-    });
-    return posts;
-  }
-);
+// REDDIT
+export const fetchRedditPosts = createAsyncThunk("posts/fetchRedditPosts", async (subreddit: string = "webdev") => {
+  return await RedditService.getHotPosts(subreddit);
+});
 
-export const fetchDevToPosts = createAsyncThunk(
-  "posts/fetchDevToPosts",
-  async (tag: string = "webdev") => {
-    const response = await fetch(
-      `https://dev.to/api/articles?tag=${tag}&top=7&per_page=10`
-    );
-    const json = await response.json();
-    if (!Array.isArray(json)) {
-      throw new Error("Dev.to API error");
-    }
-    const posts: Post[] = json.map((article: any) => {
-      return {
-        id: `devto-${article.id.toString()}`,
-        title: article.title,
-        url: article.url,
-        author: article.user.name,
-        source: "devto",
-        timeStamp: new Date(article.published_timestamp).getTime(),
-        score: article.positive_reactions_count,
-        comments: article.comments_count,
-        thumbnail: article.cover_image || undefined,
-      };
-    });
-    return posts;
-  }
-);
+export const searchRedditPosts = createAsyncThunk("posts/searchRedditPosts", async (query: string) => {
+  return await RedditService.search(query);
+});
 
-export const fetchHackerNewsPosts = createAsyncThunk(
-  "posts/fetchHackerNewsPosts",
-  async () => {
-    const topStoriesResponse = await fetch(
-      "https://hacker-news.firebaseio.com/v0/topstories.json"
-    );
-    const topStoryIds = await topStoriesResponse.json();
+// DEV.TO
+export const fetchDevToPosts = createAsyncThunk("posts/fetchDevToPosts", async (tag: string = "webdev") => {
+  return await DevToService.getArticles(tag);
+});
 
-    const storyPromises = topStoryIds.slice(0, 10).map(async (id: number) => {
-      const storyResponse = await fetch(
-        `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-      );
-      return storyResponse.json();
-    });
+export const searchDevToPosts = createAsyncThunk("posts/searchDevToPosts", async (query: string) => {
+  return await DevToService.getArticles(query);
+});
 
-    const stories = await Promise.all(storyPromises);
+// HACKER NEWS
+export const fetchHackerNewsPosts = createAsyncThunk("posts/fetchHackerNewsPosts", async () => {
+  return await HackerNewsService.getTopStories();
+});
 
-    const posts: Post[] = stories.map((story: any) => ({
-      id: `hackernews-${story.id.toString()}`,
-      title: story.title,
-      url: story.url || `https://news.ycombinator.com/item?id=${story.id}`,
-      author: story.by,
-      source: "hackernews",
-      timeStamp: story.time * 1000,
-      score: story.score,
-      comments: story.descendants || 0,
-      thumbnail: undefined,
-    }));
+export const searchHackerNewsPosts = createAsyncThunk("posts/searchHackerNewsPosts", async (query: string) => {
+  return await HackerNewsService.search(query);
+});
 
-    return posts;
-  }
-);
-
-// Async thunk for searching Reddit posts
-export const searchRedditPosts = createAsyncThunk(
-  "posts/searchRedditPosts",
-  async (query: string) => {
-    const response = await fetch(
-      `/api/reddit/search.json?q=${query}&sort=relevance&t=all&limit=10`  
-    );
-    const json = await response.json();
-
-    const posts: Post[] = json.data.children.map((child: any) => {
-      const data = child.data;
-      return {
-        id: `reddit-${data.id}`,
-        title: data.title,
-        url: data.url,
-        author: data.author,
-        source: "reddit",
-        timeStamp: data.created_utc * 1000,
-        score: data.score,
-        comments: data.num_comments,
-        thumbnail:
-          data.thumbnail && data.thumbnail.startsWith("http")
-            ? data.thumbnail
-            : undefined,
-      };
-    });
-    return posts;
-  }
-);
-
-// Async thunk for searching Dev.to posts
-export const searchDevToPosts = createAsyncThunk(
-  "posts/searchDevToPosts",
-  async (query: string) => {
-    const response = await fetch(
-      `https://dev.to/api/articles?tag=${query}&top=7&per_page=10`
-    );
-    const json = await response.json();
-    if (!Array.isArray(json)) return [];
-
-    const posts: Post[] = json.map((article: any) => ({
-      id: `devto-${article.id.toString()}`,
-      title: article.title,
-      url: article.url,
-      author: article.user.name,
-      source: "devto",
-      timeStamp: new Date(article.published_timestamp).getTime(),
-      score: article.positive_reactions_count,
-      comments: article.comments_count,
-      thumbnail: article.cover_image || undefined,
-    }));
-    return posts;
-  }
-);
-
-// Async thunk for searching Hacker News posts
-export const searchHackerNewsPosts = createAsyncThunk(
-  "posts/searchHackerNewsPosts",
-  async (query: string) => {
-    // Hacker News için Algolia Search API kullanımı
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?query=${query}&tags=story&hitsPerPage=10`
-    );
-    const json = await response.json();
-
-    const posts: Post[] = json.hits.map((story: any) => ({
-      id: `hackernews-${story.objectID}`,
-      title: story.title,
-      url:
-        story.url || `https://news.ycombinator.com/item?id=${story.objectID}`,
-      author: story.author,
-      source: "hackernews",
-      timeStamp: new Date(story.created_at).getTime(),
-      score: story.points,
-      comments: story.num_comments,
-      thumbnail: undefined,
-    }));
-    return posts;
-  }
-);
-
+// --- SLICE ---
 const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -194,18 +55,12 @@ const postsSlice = createSlice({
       state.error = null;
     },
   },
-extraReducers: (builder) => {
-    const handleFulfilled = (
-      state: PostsState,
-      action: PayloadAction<Post[]>
-    ) => {
+  extraReducers: (builder) => {
+    const handleFulfilled = (state: PostsState, action: PayloadAction<Post[]>) => {
       state.status = "succeeded";
-
       const uniqueNewItems = action.payload.filter(
-        (newItem) =>
-          !state.items.some((existingItem) => existingItem.id === newItem.id)
+        (newItem) => !state.items.some((existingItem) => existingItem.id === newItem.id)
       );
-
       state.items = [...state.items, ...uniqueNewItems];
     };
 
@@ -215,59 +70,31 @@ extraReducers: (builder) => {
     };
 
     builder
-      // --- REDDIT ---
-      .addCase(fetchRedditPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      // Reddit
+      .addCase(fetchRedditPosts.pending, (state) => { state.status = "loading"; })
       .addCase(fetchRedditPosts.fulfilled, handleFulfilled)
-      .addCase(fetchRedditPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Reddit")
-      )
-      // Reddit Search
-      .addCase(searchRedditPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(fetchRedditPosts.rejected, (state, action) => handleRejected(state, action, "Reddit"))
+      .addCase(searchRedditPosts.pending, (state) => { state.status = "loading"; })
       .addCase(searchRedditPosts.fulfilled, handleFulfilled)
-      .addCase(searchRedditPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Reddit Search")
-      )
+      .addCase(searchRedditPosts.rejected, (state, action) => handleRejected(state, action, "Reddit Search"))
 
-      // --- DEV.TO ---
-      .addCase(fetchDevToPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      // Dev.to
+      .addCase(fetchDevToPosts.pending, (state) => { state.status = "loading"; })
       .addCase(fetchDevToPosts.fulfilled, handleFulfilled)
-      .addCase(fetchDevToPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Dev.to")
-      )
-      // Dev.to Search
-      .addCase(searchDevToPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(fetchDevToPosts.rejected, (state, action) => handleRejected(state, action, "Dev.to"))
+      .addCase(searchDevToPosts.pending, (state) => { state.status = "loading"; })
       .addCase(searchDevToPosts.fulfilled, handleFulfilled)
-      .addCase(searchDevToPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Dev.to Search")
-      )
+      .addCase(searchDevToPosts.rejected, (state, action) => handleRejected(state, action, "Dev.to Search"))
 
-      // --- HACKER NEWS ---
-      .addCase(fetchHackerNewsPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      // Hacker News
+      .addCase(fetchHackerNewsPosts.pending, (state) => { state.status = "loading"; })
       .addCase(fetchHackerNewsPosts.fulfilled, handleFulfilled)
-      .addCase(fetchHackerNewsPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Hacker News")
-      )
-      // Hacker News Search
-      .addCase(searchHackerNewsPosts.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(fetchHackerNewsPosts.rejected, (state, action) => handleRejected(state, action, "Hacker News"))
+      .addCase(searchHackerNewsPosts.pending, (state) => { state.status = "loading"; })
       .addCase(searchHackerNewsPosts.fulfilled, handleFulfilled)
-      .addCase(searchHackerNewsPosts.rejected, (state, action) => 
-        handleRejected(state, action, "Hacker News Search")
-      );
+      .addCase(searchHackerNewsPosts.rejected, (state, action) => handleRejected(state, action, "Hacker News Search"));
   },
 });
 
 export const { clearPosts } = postsSlice.actions;
-
 export default postsSlice.reducer;
