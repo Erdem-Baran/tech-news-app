@@ -1,22 +1,16 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/ReduxHooks";
-import { fetchDevToPosts } from "../redux/PostsSlice";
-import type { AppDispatch, RootState } from "../redux/Store";
+import { useAppSelector } from "../hooks/ReduxHooks";
+import type { RootState } from "../redux/Store";
 import { formatCompactNumber } from "../utils/NumberUtils";
 import { truncateText } from "../utils/StringUtils";
 import { formatTimeAgo } from "../utils/DateUtils";
 
 function DevTo() {
-  const dispatch = useAppDispatch<AppDispatch>();
   const { items, status, error } = useAppSelector(
     (state: RootState) => state.posts
   );
 
   const devtoPosts = items.filter((post) => post.source === "devto");
 
-  useEffect(() => {
-    dispatch(fetchDevToPosts("webdev"));
-  }, [dispatch]);
 
   if (status === "loading") {
     return (

@@ -1,23 +1,16 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/ReduxHooks";
-import { fetchHackerNewsPosts } from "../redux/PostsSlice";
-import type { AppDispatch, RootState } from "../redux/Store";
+import { useAppSelector } from "../hooks/ReduxHooks";
+import type { RootState } from "../redux/Store";
 import { formatCompactNumber } from "../utils/NumberUtils";
 import { truncateText } from "../utils/StringUtils";
 import { formatTimeAgo } from "../utils/DateUtils";
 
 
 function HackerNews() {
-  const dispatch = useAppDispatch<AppDispatch>();
   const { items, status, error } = useAppSelector(
     (state: RootState) => state.posts
   );
 
   const hackerNewsPosts = items.filter((post) => post.source === "hackernews");
-
-  useEffect(() => {
-    dispatch(fetchHackerNewsPosts());
-  }, [dispatch]);
 
   if (status === "loading") {
     return (

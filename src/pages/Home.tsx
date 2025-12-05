@@ -1,26 +1,13 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/ReduxHooks";
+import { useAppSelector } from "../hooks/ReduxHooks";
 import { formatCompactNumber } from "../utils/NumberUtils";
 import { truncateText } from "../utils/StringUtils";
 import { formatTimeAgo } from "../utils/DateUtils";
-import {
-  fetchRedditPosts,
-  fetchDevToPosts,
-  fetchHackerNewsPosts,
-} from "../redux/PostsSlice";
-import type { AppDispatch, RootState } from "../redux/Store";
+import type { RootState } from "../redux/Store";
 
 function Home() {
-  const dispatch = useAppDispatch<AppDispatch>();
   const { items, status, error } = useAppSelector(
     (state: RootState) => state.posts
   );
-
-  useEffect(() => {
-    dispatch(fetchRedditPosts("webdev"));
-    dispatch(fetchDevToPosts("webdev"));
-    dispatch(fetchHackerNewsPosts());
-  }, [dispatch]);
 
   if (status === "loading") {
     return (
