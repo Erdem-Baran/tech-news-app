@@ -7,13 +7,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss(),],
   server: {
     proxy: {
-      // 1. Eğer '/api/reddit' ile başlayan bir istek gelirse...
+      // 1. If a request starting with ‘/api/reddit’ is received...
       '/api/reddit': {
-        // 2. Bu isteği 'https://www.reddit.com' adresine yönlendir
+        // 2. Redirect this request to 'https://www.reddit.com'
         target: 'https://www.reddit.com',
-        // 3. CORS hatasını çözmek için kaynak (origin) bilgisini değiştir
+        // 3. Change the origin to avoid CORS issues
         changeOrigin: true, 
-        // 4. İletilen URL'den '/api/reddit' ön ekini kaldır
+        // 4. Remove the '/api/reddit' prefix from the forwarded URL
         rewrite: (path) => path.replace(/^\/api\/reddit/, ''),
       },
     },
