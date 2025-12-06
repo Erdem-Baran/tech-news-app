@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# 📰 Tech News Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tech News Dashboard; **Reddit**, **Dev.to** ve **Hacker News** gibi popüler platformlardan en güncel teknoloji ve yazılım haberlerini tek bir arayüzde toplayan modern bir web uygulamasıdır.
 
-Currently, two official plugins are available:
+Bu proje **React**, **TypeScript** ve **Vite** kullanılarak geliştirilmiş; **Redux Toolkit** ile durum yönetimi sağlanmış ve **Tailwind CSS** ile modern bir arayüz tasarlanmıştır.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Özellikler
 
-## React Compiler
+* **Çoklu Kaynak Desteği:** Reddit (r/webdev), Dev.to ve Hacker News üzerinden en son gönderileri çeker.
+* **Anlık Arama:** Arama çubuğu ile tüm platformlarda eş zamanlı içerik araması yapabilirsiniz.
+* **Favorilere Ekleme:** Beğendiğiniz haberleri favorilere ekleyebilir ve daha sonra okuyabilirsiniz (Local Storage ile tarayıcıda saklanır).
+* **Karanlık & Aydınlık Mod:** Göz yormayan Karanlık (Dark) ve Aydınlık (Light) tema seçenekleri arasında tek tıkla geçiş yapabilirsiniz.
+* **Modern & Responsive Tasarım:** Tailwind CSS ile oluşturulmuş, her cihazda (mobil, tablet, masaüstü) kusursuz görünen arayüz.
+* **Performanslı:** Vite ve React ile ışık hızında yükleme ve çalışma performansı.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Kullanılan Teknolojiler
 
-## Expanding the ESLint configuration
+* **[React](https://react.dev/)** - Kullanıcı arayüzü kütüphanesi
+* **[TypeScript](https://www.typescriptlang.org/)** - Tip güvenliği için
+* **[Vite](https://vitejs.dev/)** - Hızlı geliştirme ve build aracı
+* **[Redux Toolkit](https://redux-toolkit.js.org/)** - Global state yönetimi
+* **[Tailwind CSS](https://tailwindcss.com/)** - Stil ve tasarım
+* **[React Router](https://reactrouter.com/)** - Sayfa yönlendirmeleri
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Kurulum ve Çalıştırma
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Projeyi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  **Projeyi Klonlayın:**
+    ```bash
+    git clone [https://github.com/Erdem-Baran/tech-news-app.git](https://github.com/Erdem-Baran/tech-news-app.git)
+    cd tech-news-app
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2.  **Bağımlılıkları Yükleyin:**
+    ```bash
+    npm install
+    # veya
+    yarn install
+    ```
+
+3.  **Geliştirme Sunucusunu Başlatın:**
+    ```bash
+    npm run dev
+    # veya
+    yarn dev
+    ```
+
+4.  **Tarayıcıda Açın:**
+    Terminalde gösterilen adrese (genellikle `http://localhost:5173`) gidin.
+
+## 📂 Proje Yapısı
+
+```text
+src/
+├── components/      # Tekrar kullanılabilir bileşenler (PostCards, ThemeToggle vb.)
+├── hooks/           # Custom hook'lar (useTheme, useDebounce, ReduxHooks)
+├── layout/          # Ana sayfa düzeni (MainLayout)
+├── pages/           # Sayfa bileşenleri (Home, Reddit, Favorites vb.)
+├── redux/           # Redux store ve slice dosyaları
+├── services/        # API isteklerini yöneten servisler
+├── types/           # TypeScript tip tanımlamaları
+├── utils/           # Yardımcı fonksiyonlar (Tarih formatlama vb.)
+└── main.tsx         # Uygulamanın giriş noktası
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🤝 Katkıda Bulunma
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Katkılarınızı bekliyoruz! Herhangi bir hata bulursanız veya yeni bir özellik eklemek isterseniz:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  Bu repoyu Fork'layın.
+2.  Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`).
+3.  Değişikliklerinizi commit yapın (`git commit -m 'Yeni özellik eklendi'`).
+4.  Branch'inizi pushlayın (`git push origin feature/yeni-ozellik`).
+5.  Bir **Pull Request** oluşturun.
