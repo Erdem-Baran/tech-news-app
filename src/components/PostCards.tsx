@@ -4,6 +4,7 @@ import type { Post } from "../types/Types";
 import { formatCompactNumber } from "../utils/NumberUtils";
 import { truncateText } from "../utils/StringUtils";
 import { formatTimeAgo } from "../utils/DateUtils";
+import type { RootState } from "../redux/Store";
 
 interface PostCardProps {
   post: Post;
@@ -27,6 +28,7 @@ function PostCard({ post }: PostCardProps) {
       : post.source === "devto"
       ? "border-purple-600"
       : "border-orange-500";
+
 
   return (
     <div
