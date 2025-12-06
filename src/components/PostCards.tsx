@@ -4,7 +4,6 @@ import type { Post } from "../types/Types";
 import { formatCompactNumber } from "../utils/NumberUtils";
 import { truncateText } from "../utils/StringUtils";
 import { formatTimeAgo } from "../utils/DateUtils";
-import type { RootState } from "../redux/Store";
 
 interface PostCardProps {
   post: Post;
@@ -29,10 +28,9 @@ function PostCard({ post }: PostCardProps) {
       ? "border-purple-600"
       : "border-orange-500";
 
-
   return (
     <div
-      className={`bg-slate-800 p-6 rounded-lg hover:bg-slate-750 transition-colors border-l-4 ${borderColorClass} relative group`}
+      className={`bg-white dark:bg-slate-800 shadow-sm p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-750 transition-colors border-l-4 ${borderColorClass} relative group`}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1 pr-10">
@@ -40,13 +38,13 @@ function PostCard({ post }: PostCardProps) {
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-400 block"
+            className="text-blue-500 hover:text-blue-600 dark:text-blue-400 block"
           >
-            <h3 className="text-xl text-white hover:text-blue-400 transition-colors">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               {truncateText(post.title, 100)}
             </h3>
           </a>
-          <p className="text-gray-400 text-sm mt-2">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
             by {post.author} • {formatCompactNumber(post.comments)} comments
             {post.score > 0 && ` • ${formatCompactNumber(post.score)} points`}
           </p>
@@ -66,12 +64,12 @@ function PostCard({ post }: PostCardProps) {
 
       <button
         onClick={handleFavoriteClick}
-        className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-700 transition-colors"
+        className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
         title={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >
         <svg
           className={`w-6 h-6 ${
-            isFavorite ? "text-red-500 fill-current" : "text-gray-400"
+            isFavorite ? "text-red-500 fill-current" : "text-gray-400 dark:text-gray-500"
           }`}
           fill="none"
           stroke="currentColor"

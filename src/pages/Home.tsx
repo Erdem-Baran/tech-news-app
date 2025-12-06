@@ -10,7 +10,7 @@ function Home() {
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-white text-2xl">Loading...</div>
+         <div className="text-gray-900 dark:text-white text-2xl">Loading...</div>
       </div>
     );
   }

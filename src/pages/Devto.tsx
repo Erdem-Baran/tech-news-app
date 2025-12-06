@@ -12,7 +12,7 @@ function DevTo() {
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="text-white text-2xl">Loading Dev.to posts...</div>
+        <div className="text-gray-900 dark:text-white text-2xl">Loading Dev.to posts...</div>
       </div>
     );
   }
