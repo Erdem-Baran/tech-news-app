@@ -28,7 +28,7 @@ Projeyi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin
 
 1.  **Projeyi Klonlayın:**
     ```bash
-    git clone [https://github.com/Erdem-Baran/tech-news-app.git](https://github.com/Erdem-Baran/tech-news-app.git)
+    git clone https://github.com/Erdem-Baran/tech-news-app.git
     cd tech-news-app
     ```
 
