@@ -13,10 +13,10 @@ function Favorites() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-white mb-2">Henüz favori yok</h2>
-        <p className="text-gray-400 mb-6">Beğendiğiniz haberleri kaydetmek için kalp ikonuna tıklayın.</p>
+        <h2 className="text-2xl font-bold text-white mb-2">No favorites yet</h2>
+        <p className="text-gray-400 mb-6">Click the heart icon to save the news you like.</p>
         <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors">
-          Haberleri Keşfet &rarr;
+          Discover News &rarr;
         </Link>
       </div>
     );
@@ -28,7 +28,7 @@ function Favorites() {
         <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-semibold">
           FAVORITES
         </span>
-        <h2 className="text-3xl font-bold text-white">Saved Posts ({favorites.length})</h2>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Saved Posts ({favorites.length})</h2>
       </div>
 
       <div className="space-y-4">

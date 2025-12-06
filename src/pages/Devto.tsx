@@ -38,13 +38,18 @@ function DevTo() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-white mb-6">All Tech News</h2>
+    <div className="flex items-center gap-3 mb-6">
+      <span className="bg-purple-600 text-white px-3 py-1 rounded text-sm font-semibold">
+          DEV.TO
+        </span>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Dev.to Posts</h2>
+        </div>
       <div className="space-y-4">
         {items.map((post: any) => (
           <PostCard key={post.id} post={post} />
         ))}
-      </div>
     </div>
+        </div>
   );
 }
 

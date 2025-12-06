@@ -40,7 +40,7 @@ function Reddit() {
         <span className="bg-orange-600 text-white px-3 py-1 rounded text-sm font-semibold">
           REDDIT
         </span>
-        <h2 className="text-3xl font-bold text-white">r/webdev Posts</h2>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">r/webdev Posts</h2>
       </div>
       <div className="space-y-4">
         {items.map((post: any) => (

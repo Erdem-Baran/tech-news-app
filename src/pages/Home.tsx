@@ -36,7 +36,7 @@ function Home() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-white mb-6">All Tech News</h2>
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">All Tech News</h2>
       <div className="space-y-4">
         {items.map((post: any) => (
           <PostCard key={post.id} post={post} />
