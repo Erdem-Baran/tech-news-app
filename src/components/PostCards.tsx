@@ -30,7 +30,7 @@ function PostCard({ post }: PostCardProps) {
 
   return (
     <div
-      className={`bg-white dark:bg-slate-800 shadow-sm p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-750 transition-colors border-l-4 ${borderColorClass} relative group`}
+      className={`bg-white dark:bg-slate-800 shadow-sm p-6 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border-l-4 ${borderColorClass} relative group`}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1 pr-10">
