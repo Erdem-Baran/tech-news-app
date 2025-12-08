@@ -47,7 +47,7 @@ export const RedditService = {
   search: async (query: string): Promise<Post[]> => {
     try {
       const response = await fetch(
-       `/api/reddit/search.json?q=${query}&sort=relevance&t=all&limit=10`
+        `/api/reddit/search.json?q=${query}&sort=relevance&t=all&limit=10`
       );
 
       if (!response.ok) {
