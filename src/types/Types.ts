@@ -6,7 +6,6 @@ export interface Post{
    comments: number;
    url: string;
    thumbnail?: string;
-   subreddit?: string;
    source: 'devto' | 'hackernews';
    content?: string;
    timeStamp: number;
