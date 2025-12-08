@@ -7,7 +7,7 @@ export interface Post{
    url: string;
    thumbnail?: string;
    subreddit?: string;
-   source: 'reddit' | 'devto' | 'hackernews';
+   source: 'devto' | 'hackernews';
    content?: string;
    timeStamp: number;
 }
@@ -21,7 +21,7 @@ export interface PostsState{
 
 export interface FilterState{
     searchTerm: string;
-    source: 'all' | 'reddit' | 'devto' | 'hackernews';
+    source: 'all' | 'devto' | 'hackernews';
     sortBy: 'popular' | 'recent' | 'comments';
     timeRange: 'today' | 'week' | 'month' | 'all';
 }

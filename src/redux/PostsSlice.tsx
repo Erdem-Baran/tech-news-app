@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import type { Post } from "../types/Types";
-import { RedditService } from "../services/RedditService";
 import { DevToService } from "../services/DevToService";
 import { HackerNewsService } from "../services/HackerNewsService";
 
@@ -20,14 +19,6 @@ const initialState: PostsState = {
 };
 
 
-// REDDIT
-export const fetchRedditPosts = createAsyncThunk("posts/fetchRedditPosts", async (subreddit: string = "webdev") => {
-  return await RedditService.getHotPosts(subreddit);
-});
-
-export const searchRedditPosts = createAsyncThunk("posts/searchRedditPosts", async (query: string) => {
-  return await RedditService.search(query);
-});
 
 // DEV.TO
 export const fetchDevToPosts = createAsyncThunk("posts/fetchDevToPosts", async (tag: string = "webdev") => {
@@ -84,14 +75,6 @@ const postsSlice = createSlice({
     };
 
     builder
-      // Reddit
-      .addCase(fetchRedditPosts.pending, (state) => { state.status = "loading"; })
-      .addCase(fetchRedditPosts.fulfilled, handleFulfilled)
-      .addCase(fetchRedditPosts.rejected, (state, action) => handleRejected(state, action, "Reddit"))
-      .addCase(searchRedditPosts.pending, (state) => { state.status = "loading"; })
-      .addCase(searchRedditPosts.fulfilled, handleFulfilled)
-      .addCase(searchRedditPosts.rejected, (state, action) => handleRejected(state, action, "Reddit Search"))
-
       // Dev.to
       .addCase(fetchDevToPosts.pending, (state) => { state.status = "loading"; })
       .addCase(fetchDevToPosts.fulfilled, handleFulfilled)

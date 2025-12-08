@@ -22,9 +22,7 @@ function PostCard({ post }: PostCardProps) {
   };
 
   const borderColorClass =
-    post.source === "reddit"
-      ? "border-orange-600"
-      : post.source === "devto"
+      post.source === "devto"
       ? "border-purple-600"
       : "border-orange-500";
 

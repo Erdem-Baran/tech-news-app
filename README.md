@@ -1,12 +1,12 @@
 # 📰 Tech News Dashboard
 
-Tech News Dashboard; **Reddit**, **Dev.to** ve **Hacker News** gibi popüler platformlardan en güncel teknoloji ve yazılım haberlerini tek bir arayüzde toplayan modern bir web uygulamasıdır.
+Tech News Dashboard; **Dev.to** ve **Hacker News** gibi popüler platformlardan en güncel teknoloji ve yazılım haberlerini tek bir arayüzde toplayan modern bir web uygulamasıdır.
 
 Bu proje **React**, **TypeScript** ve **Vite** kullanılarak geliştirilmiş; **Redux Toolkit** ile durum yönetimi sağlanmış ve **Tailwind CSS** ile modern bir arayüz tasarlanmıştır.
 
 ## 🚀 Özellikler
 
-* **Çoklu Kaynak Desteği:** Reddit (r/webdev), Dev.to ve Hacker News üzerinden en son gönderileri çeker.
+* **Çoklu Kaynak Desteği:**  Dev.to ve Hacker News üzerinden en son gönderileri çeker.
 * **Anlık Arama:** Arama çubuğu ile tüm platformlarda eş zamanlı içerik araması yapabilirsiniz.
 * **Favorilere Ekleme:** Beğendiğiniz haberleri favorilere ekleyebilir ve daha sonra okuyabilirsiniz (Local Storage ile tarayıcıda saklanır).
 * **Karanlık & Aydınlık Mod:** Göz yormayan Karanlık (Dark) ve Aydınlık (Light) tema seçenekleri arasında tek tıkla geçiş yapabilirsiniz.
@@ -56,7 +56,7 @@ src/
 ├── components/      # Tekrar kullanılabilir bileşenler (PostCards, ThemeToggle vb.)
 ├── hooks/           # Custom hook'lar (useTheme, useDebounce, ReduxHooks)
 ├── layout/          # Ana sayfa düzeni (MainLayout)
-├── pages/           # Sayfa bileşenleri (Home, Reddit, Favorites vb.)
+├── pages/           # Sayfa bileşenleri (Home, Favorites vb.)
 ├── redux/           # Redux store ve slice dosyaları
 ├── services/        # API isteklerini yöneten servisler
 ├── types/           # TypeScript tip tanımlamaları

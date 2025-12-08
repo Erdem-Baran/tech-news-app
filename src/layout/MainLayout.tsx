@@ -5,10 +5,8 @@ import { useDebounce } from "../hooks/useDebounce";
 import ThemeToggle from "../components/ThemeToggle";
 import {
   clearPosts,
-  searchRedditPosts,
   searchDevToPosts,
   searchHackerNewsPosts,
-  fetchRedditPosts,
   fetchDevToPosts,
   fetchHackerNewsPosts,
 } from "../redux/PostsSlice";
@@ -36,28 +34,22 @@ function MainLayout() {
     if (debouncedSearchTerm.trim().length > 2) {
       dispatch(clearPosts());
 
-      if (location.pathname === "/reddit") {
-        dispatch(searchRedditPosts(debouncedSearchTerm));
-      } else if (location.pathname === "/devto") {
+       if (location.pathname === "/devto") {
         dispatch(searchDevToPosts(debouncedSearchTerm));
       } else if (location.pathname === "/hackernews") {
         dispatch(searchHackerNewsPosts(debouncedSearchTerm));
       } else {
-        dispatch(searchRedditPosts(debouncedSearchTerm));
         dispatch(searchDevToPosts(debouncedSearchTerm));
         dispatch(searchHackerNewsPosts(debouncedSearchTerm));
       }
     } else {
       dispatch(clearPosts());
 
-      if (location.pathname === "/reddit") {
-        dispatch(fetchRedditPosts("webdev"));
-      } else if (location.pathname === "/devto") {
+       if (location.pathname === "/devto") {
         dispatch(fetchDevToPosts("webdev"));
       } else if (location.pathname === "/hackernews") {
         dispatch(fetchHackerNewsPosts());
       } else {
-        dispatch(fetchRedditPosts("webdev"));
         dispatch(fetchDevToPosts("webdev"));
         dispatch(fetchHackerNewsPosts());
       }
@@ -151,16 +143,6 @@ function MainLayout() {
                 All Posts
               </Link>
               <Link
-                to="/reddit"
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive("/reddit")
-                    ? "bg-orange-600 text-white shadow-md"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white"
-                }`}
-              >
-                Reddit
-              </Link>
-              <Link
                 to="/devto"
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                   isActive("/devto")
@@ -206,17 +188,6 @@ function MainLayout() {
                 }`}
               >
                 All Posts
-              </Link>
-              <Link
-                to="/reddit"
-                onClick={closeMenu}
-                className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  isActive("/reddit")
-                    ? "bg-orange-600/20 text-orange-600 dark:text-orange-400 border border-orange-600/30"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-white"
-                }`}
-              >
-                Reddit
               </Link>
               <Link
                 to="/devto"
@@ -265,7 +236,7 @@ function MainLayout() {
       <footer className="bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 mt-auto transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            © 2025 Tech News Dashboard • Powered by Reddit, Dev.to & Hacker News
+            © 2025 Tech News Dashboard • Powered by Dev.to & Hacker News
           </p>
         </div>
       </footer>
