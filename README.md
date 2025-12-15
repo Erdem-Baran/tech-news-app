@@ -61,4 +61,4 @@ src/
 ├── services/        # Services managing API requests
 ├── types/           # TypeScript type definitions
 ├── utils/           # Utility functions (Date formatting, etc.)
-└── main.tsx         # Entry point of the application
+└── main.tsx         # Entry point of the application.
