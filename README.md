@@ -1,75 +1,64 @@
 # 📰 Tech News Dashboard
 
-Tech News Dashboard; **Dev.to** ve **Hacker News** gibi popüler platformlardan en güncel teknoloji ve yazılım haberlerini tek bir arayüzde toplayan modern bir web uygulamasıdır.
+Tech News Dashboard is a modern web application that aggregates the latest technology and software news from popular platforms like **Dev.to** and **Hacker News** into a single interface.
 
-Bu proje **React**, **TypeScript** ve **Vite** kullanılarak geliştirilmiş; **Redux Toolkit** ile durum yönetimi sağlanmış ve **Tailwind CSS** ile modern bir arayüz tasarlanmıştır.
+This project is developed using **React**, **TypeScript**, and **Vite**; state management is provided by **Redux Toolkit**, and a modern interface is designed with **Tailwind CSS**.
 
-## 🚀 Özellikler
+## 🚀 Features
 
-* **Çoklu Kaynak Desteği:**  Dev.to ve Hacker News üzerinden en son gönderileri çeker.
-* **Anlık Arama:** Arama çubuğu ile tüm platformlarda eş zamanlı içerik araması yapabilirsiniz.
-* **Favorilere Ekleme:** Beğendiğiniz haberleri favorilere ekleyebilir ve daha sonra okuyabilirsiniz (Local Storage ile tarayıcıda saklanır).
-* **Karanlık & Aydınlık Mod:** Göz yormayan Karanlık (Dark) ve Aydınlık (Light) tema seçenekleri arasında tek tıkla geçiş yapabilirsiniz.
-* **Modern & Responsive Tasarım:** Tailwind CSS ile oluşturulmuş, her cihazda (mobil, tablet, masaüstü) kusursuz görünen arayüz.
-* **Performanslı:** Vite ve React ile ışık hızında yükleme ve çalışma performansı.
+* **Multi-Source Support:** Fetches the latest posts from Dev.to and Hacker News.
+* **Instant Search:** You can search for content simultaneously across all platforms using the search bar.
+* **Add to Favorites:** You can add news you like to favorites and read them later (Stored in the browser via Local Storage).
+* **Dark & Light Mode:** Switch between eye-friendly Dark and Light theme options with a single click.
+* **Modern & Responsive Design:** An interface built with Tailwind CSS that looks perfect on every device (mobile, tablet, desktop).
+* **High Performance:** Lightning-fast loading and runtime performance with Vite and React.
 
-## 🛠️ Kullanılan Teknolojiler
+## 🛠️ Technologies Used
 
-* **[React](https://react.dev/)** - Kullanıcı arayüzü kütüphanesi
-* **[TypeScript](https://www.typescriptlang.org/)** - Tip güvenliği için
-* **[Vite](https://vitejs.dev/)** - Hızlı geliştirme ve build aracı
-* **[Redux Toolkit](https://redux-toolkit.js.org/)** - Global state yönetimi
-* **[Tailwind CSS](https://tailwindcss.com/)** - Stil ve tasarım
-* **[React Router](https://reactrouter.com/)** - Sayfa yönlendirmeleri
+* **[React](https://react.dev/)** - User interface library
+* **[TypeScript](https://www.typescriptlang.org/)** - For type safety
+* **[Vite](https://vitejs.dev/)** - Fast development and build tool
+* **[Redux Toolkit](https://redux-toolkit.js.org/)** - Global state management
+* **[Tailwind CSS](https://tailwindcss.com/)** - Styling and design
+* **[React Router](https://reactrouter.com/)** - Page routing
 
-## 📦 Kurulum ve Çalıştırma
+## 📦 Installation and Setup
 
-Projeyi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
+Follow the steps below to run the project on your computer:
 
-1.  **Projeyi Klonlayın:**
+1.  **Clone the Project:**
     ```bash
-    git clone https://github.com/Erdem-Baran/tech-news-app.git
+    git clone [https://github.com/Erdem-Baran/tech-news-app.git](https://github.com/Erdem-Baran/tech-news-app.git)
     cd tech-news-app
     ```
 
-2.  **Bağımlılıkları Yükleyin:**
+2.  **Install Dependencies:**
     ```bash
     npm install
-    # veya
+    # or
     yarn install
     ```
 
-3.  **Geliştirme Sunucusunu Başlatın:**
+3.  **Start Development Server:**
     ```bash
     npm run dev
-    # veya
+    # or
     yarn dev
     ```
 
-4.  **Tarayıcıda Açın:**
-    Terminalde gösterilen adrese (genellikle `http://localhost:5173`) gidin.
+4.  **Open in Browser:**
+    Go to the address shown in the terminal (usually `http://localhost:5173`).
 
-## 📂 Proje Yapısı
+## 📂 Project Structure
 
 ```text
 src/
-├── components/      # Tekrar kullanılabilir bileşenler (PostCards, ThemeToggle vb.)
-├── hooks/           # Custom hook'lar (useTheme, useDebounce, ReduxHooks)
-├── layout/          # Ana sayfa düzeni (MainLayout)
-├── pages/           # Sayfa bileşenleri (Home, Favorites vb.)
-├── redux/           # Redux store ve slice dosyaları
-├── services/        # API isteklerini yöneten servisler
-├── types/           # TypeScript tip tanımlamaları
-├── utils/           # Yardımcı fonksiyonlar (Tarih formatlama vb.)
-└── main.tsx         # Uygulamanın giriş noktası
-```
-
-## 🤝 Katkıda Bulunma
-
-Katkılarınızı bekliyoruz! Herhangi bir hata bulursanız veya yeni bir özellik eklemek isterseniz:
-
-1.  Bu repoyu Fork'layın.
-2.  Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`).
-3.  Değişikliklerinizi commit yapın (`git commit -m 'Yeni özellik eklendi'`).
-4.  Branch'inizi pushlayın (`git push origin feature/yeni-ozellik`).
-5.  Bir **Pull Request** oluşturun.
+├── components/      # Reusable components (PostCards, ThemeToggle, etc.)
+├── hooks/           # Custom hooks (useTheme, useDebounce, ReduxHooks)
+├── layout/          # Main page layout (MainLayout)
+├── pages/           # Page components (Home, Favorites, etc.)
+├── redux/           # Redux store and slice files
+├── services/        # Services managing API requests
+├── types/           # TypeScript type definitions
+├── utils/           # Utility functions (Date formatting, etc.)
+└── main.tsx         # Entry point of the application
